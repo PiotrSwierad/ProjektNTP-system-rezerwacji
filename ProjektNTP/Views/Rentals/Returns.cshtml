@@ -1,0 +1,54 @@
+﻿@model ProjektNTP.Models.Rental
+@{
+    ViewBag.Title = "Zwróć";
+}
+@section Scripts{
+<script src="~/Scripts/Car/Returns.js"></script>
+}
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Pojazd:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Car.CarBrand)
+            @Html.DisplayFor(model => model.Car.CarModel)
+        </dd>
+
+        <dt>
+            Wypożyczający:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationUser.Imie)
+            @Html.DisplayFor(model => model.ApplicationUser.Nazwisko)
+        </dd>
+
+        <dt>
+            Data Wypożyczenia:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BorrowDate)
+        </dd>
+
+        <dd>
+            Poprzedni przebieg: @Html.DisplayFor(model => model.Car.Mileage) <br>
+            Aktualny przebieg: @Html.EditorFor(model => model.Car.Mileage, new { htmlAttributes = new { @class = "form-control" } })
+
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="numberOfDistance" id="numberOfDistance" />
+        <div class="form-actions no-color">
+            <input type="submit" value="Zwróć" class="btn btn-danger" /> 
+            @Html.ActionLink("Powrót do listy", "Index", "Rentals", null, new { @class = "btn btn-default" })
+        </div>
+    }
+</div>

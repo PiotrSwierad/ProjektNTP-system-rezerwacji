@@ -1,0 +1,97 @@
+﻿@model IEnumerable<ProjektNTP.Models.Car>
+
+@{
+    ViewBag.Title = "Pojazdy";
+}
+@section Scripts{
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+    <script type="text/javascript">
+        $(function () {
+            $("#dateRange").daterangepicker({
+                opens: 'right',
+                locale: {
+                    cancelLabel: 'Clear'
+                }
+
+            }, function (start, end) {
+
+                $('#startDate').val(start.format("YYYY-MM-DD"));
+                $('#endDate').val(end.format("YYYY-MM-DD"));
+
+            });
+        });
+    </script>
+}
+
+<h2>Pojazdy</h2>
+
+<p>
+    @Html.ActionLink("Dodaj Pojazd", "Create", "Cars", null, new { @class = "btn btn-success" })
+
+
+
+    @using (Html.BeginForm("Index", "Cars", FormMethod.Get))
+    {
+    <p>
+        Marka: @Html.DropDownList("carBrand", "Wszystkie")
+        Model: @Html.DropDownList("carModel", "Wszystkie")
+
+
+
+        <input type="hidden" name="startDate" id="startDate" />
+        <input type="hidden" name="endDate" id="endDate" />
+        <input type="submit" value="Filtruj" class="btn btn-info" />
+    </p>
+
+
+}
+    Dostępność: <input id='dateRange' name='dateFrom' />
+    </p>
+
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("Marka")
+            </th>
+            <th>
+                @Html.DisplayName("Model")
+            </th>
+            <th>
+                @Html.DisplayName("Przebieg")
+            </th>
+            <th>
+                @Html.DisplayName("Numery Rejestracyjne")
+            </th>
+        </tr>
+
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CarBrand)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CarModel)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mileage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Plates)
+                </td>
+                <td>
+                    @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Szczegóły", "Details", new { id = item.Id }, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Usuń", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+
+    </table>

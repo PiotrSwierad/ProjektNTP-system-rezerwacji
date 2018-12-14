@@ -1,0 +1,53 @@
+﻿@model IEnumerable<ProjektNTP.Models.Rental>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<h2>Rezerwacje i wypożyczenia pojazdów</h2>
+<br>
+<p>
+    @Html.ActionLink("Wypożycz Auto", "Create", "Rentals", null, new { @class = "btn btn-success" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Pojazd
+        </th>
+        <th>
+            Wypożyczył
+        </th>
+        <th>
+            Data wypożyczenia
+        </th>
+        <th>
+            Data zwrotu
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Car.FullBrand)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplicationUser.Imie) @Html.DisplayFor(modelItem => item.ApplicationUser.Nazwisko)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BorrowDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReturnDate)
+            </td>
+            <td>
+
+                @Html.ActionLink("Anuluj/Zwróć", "Returns", new { id = item.RentalId }, new { @class = "btn btn-default" })
+
+            </td>
+        </tr>
+    }
+
+</table>

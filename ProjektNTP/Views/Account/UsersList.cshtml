@@ -1,0 +1,47 @@
+﻿@model IEnumerable<ProjektNTP.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "Lista użytkowników";
+}
+
+<h2>Użytkownicy serwisu</h2>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("Imię")
+            </th>
+            <th>
+                @Html.DisplayName("Nazwisko")
+            </th>
+            <th>
+                @Html.DisplayName("Adres E-mail")
+            </th>
+            <th>
+                @Html.DisplayName("Ilość rezerwacji")
+            </th>
+            <th></th>
+        </tr>
+
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Imie)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nazwisko)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rentals.Count)
+                </td>
+                
+            </tr>
+        }
+
+    </table>
